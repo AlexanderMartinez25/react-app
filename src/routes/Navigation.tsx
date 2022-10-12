@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, NavLink, Navigate } from "react-router-do
 import { LazyPage1, LazyPage2, LazyPage3 } from "../01-lazyload/pages"
 import logo from '../assets/react.svg'
 
+
 export const Navigation = () => {
   return (
     <BrowserRouter>
