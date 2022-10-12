@@ -1,7 +1,7 @@
 
 export const LazyPage3 = () => {
   return (
-    <div>LazyPage3</div>
+    <h3>LazyPage3</h3>
   )
 }
 export default LazyPage3;
