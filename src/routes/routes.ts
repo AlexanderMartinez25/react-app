@@ -8,9 +8,11 @@ interface Route {
   name: string;
 }
 
-const Lazy1 = lazy(() => import('../01-lazyload/pages/LazyPage1'));
-const Lazy2 = lazy(() => import('../01-lazyload/pages/LazyPage2'));
-const Lazy3 = lazy(() => import('../01-lazyload/pages/LazyPage3'));
+// como no utilizo el webpack, igual no es necesario ya que el nobre viene por defecto
+
+const Lazy1 = lazy(() => import(/*webpackChunkName: "lazyPage1"*/'../01-lazyload/pages/LazyPage1'));
+const Lazy2 = lazy(() => import(/*webpackChunkName: "lazyPage2"*/'../01-lazyload/pages/LazyPage2'));
+const Lazy3 = lazy(() => import(/*webpackChunkName: "lazyPage3"*/'../01-lazyload/pages/LazyPage3'));
 
 export const routes: Route[] = [
   {
