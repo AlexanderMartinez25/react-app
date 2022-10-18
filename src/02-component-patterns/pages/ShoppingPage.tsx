@@ -21,8 +21,8 @@ export const ShoppingPage = () => {
         flexWrap: 'wrap'
       }}>
         <ProductCard product={product}>
-          <ProductCard.Image />
-          <ProductCard.Title title={'Hola mundo'} />
+          <ProductCard.Image className="custom-image"  />
+          <ProductCard.Title className="text-bold" />
           <ProductCard.Buttons className="custom-buttons" />
         </ProductCard>
 
