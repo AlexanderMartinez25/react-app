@@ -4,6 +4,7 @@ import {
   ProductImage,
   ProductTitle,
 } from "../components";
+import { Product } from "../interfaces/interfaces";
 import "../styles/custom-styles.css";
 
 const product = {
@@ -16,6 +17,8 @@ const product2 = {
   title: "Coffe Mug - Meme",
   img: "./coffee-mug2.png",
 };
+
+const products: Product[] = [product, product2];
 
 export const ShoppingPage = () => {
   return (
@@ -30,18 +33,32 @@ export const ShoppingPage = () => {
           flexWrap: "wrap",
         }}
       >
-        <ProductCard product={product} className="bg-dark text-white">
-          <ProductCard.Image className="custom-image" />
-          <ProductCard.Title className="text-bold" />
-          <ProductCard.Buttons className="custom-buttons" />
-        </ProductCard>
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            className="bg-dark text-white"
+          >
+            <ProductImage
+              className="custom-image"
+              style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }}
+            />
+            <ProductTitle className="text-bold" />
+            <ProductButtons className="custom-buttons" />
+          </ProductCard>
+        ))}
+      </div>
 
-        <ProductCard product={product2} className="bg-dark text-white">
+      <div className="shopping-cart">
+        <ProductCard
+          product={product2}
+          className="bg-dark text-white"
+          style={{ width: "100px" }}
+        >
           <ProductImage
             className="custom-image"
             style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }}
           />
-          <ProductTitle className="text-bold" />
           <ProductButtons className="custom-buttons" />
         </ProductCard>
       </div>
