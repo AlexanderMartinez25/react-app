@@ -30,8 +30,8 @@ export const ShoppingPage = () => {
     [key: string]: ProductInCard;
   }>({});
 
-  const onProductCountChange = () => {
-    console.log("heyyy");
+  const onProductCountChange = ({count, product}: {count:number, product: Product}) => {
+    console.log({count, product});
   };
 
   return (
@@ -51,7 +51,7 @@ export const ShoppingPage = () => {
             key={product.id}
             product={product}
             className="bg-dark text-white"
-            onChange={() => onProductCountChange()}
+            onChange={onProductCountChange}
           >
             <ProductImage
               className="custom-image"
