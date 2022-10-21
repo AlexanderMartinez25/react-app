@@ -22,14 +22,18 @@ const product2 = {
 const products: Product[] = [product, product2];
 
 interface ProductInCard extends Product {
-  count: number
+  count: number;
 }
 
 export const ShoppingPage = () => {
+  const [shoppingCart, setShoppingCart] = useState<{
+    [key: string]: ProductInCard;
+  }>({});
 
-  const [shoppingCart, setShoppingCart] = useState<{[key:string]: ProductInCard}>({})
+  const onProductCountChange = () => {
+    console.log("heyyy");
+  };
 
-  
   return (
     <div>
       <h1>Shoping Store</h1>
@@ -47,6 +51,7 @@ export const ShoppingPage = () => {
             key={product.id}
             product={product}
             className="bg-dark text-white"
+            onChange={() => onProductCountChange()}
           >
             <ProductImage
               className="custom-image"
