@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { ProductButtons, ProductCard, ProductImage, ProductTitle } from "../components";
 import { products } from "../data/products";
 import { useShoppingCart } from "../hooks/useShoppingCart";
-import { Product } from "../interfaces/interfaces";
 import "../styles/custom-styles.css";
 
 export const ShoppingPage = () => {
