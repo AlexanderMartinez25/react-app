@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  ProductButtons,
-  ProductCard,
-  ProductImage,
-  ProductTitle,
-} from "../components";
+import { ProductButtons, ProductCard, ProductImage, ProductTitle } from "../components";
 import { Product } from "../interfaces/interfaces";
 import "../styles/custom-styles.css";
 
@@ -30,8 +25,18 @@ export const ShoppingPage = () => {
     [key: string]: ProductInCard;
   }>({});
 
-  const onProductCountChange = ({count, product}: {count:number, product: Product}) => {
-    console.log({count, product});
+  const onProductCountChange = ({ count, product }: { count: number; product: Product }) => {
+    setShoppingCart((oldShopingCart) => {
+      if (count < 1) {
+        const { [product.id]: toDelete, ...rest } = oldShopingCart;
+        return rest;
+      }
+
+      return {
+        ...oldShopingCart,
+        [product.id]: { ...product, count },
+      };
+    });
   };
 
   return (
@@ -53,10 +58,7 @@ export const ShoppingPage = () => {
             className="bg-dark text-white"
             onChange={onProductCountChange}
           >
-            <ProductImage
-              className="custom-image"
-              style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }}
-            />
+            <ProductImage className="custom-image" style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }} />
             <ProductTitle className="text-bold" />
             <ProductButtons className="custom-buttons" />
           </ProductCard>
@@ -64,17 +66,14 @@ export const ShoppingPage = () => {
       </div>
 
       <div className="shopping-cart">
-        <ProductCard
-          product={product2}
-          className="bg-dark text-white"
-          style={{ width: "100px" }}
-        >
-          <ProductImage
-            className="custom-image"
-            style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }}
-          />
+        <ProductCard product={product2} className="bg-dark text-white" style={{ width: "100px" }}>
+          <ProductImage className="custom-image" style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }} />
           <ProductButtons className="custom-buttons" />
         </ProductCard>
+      </div>
+
+      <div>
+        <code> {JSON.stringify(shoppingCart, null, 5)}</code>
       </div>
     </div>
   );
