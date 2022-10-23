@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { Product, ProductInCard } from '../interfaces/interfaces';
+import { useState } from "react";
+import { Product, ProductInCard } from "../interfaces/interfaces";
 
 export const useShoppingCart = () => {
-   const [shoppingCart, setShoppingCart] = useState<{
+  const [shoppingCart, setShoppingCart] = useState<{
     [key: string]: ProductInCard;
   }>({});
 
@@ -14,32 +14,17 @@ export const useShoppingCart = () => {
     product: Product;
   }) => {
     setShoppingCart((oldShopingCart) => {
-      const productInCart: ProductInCard = oldShopingCart[product.id] || {
-        ...product,
-        count: 0,
-      };
+      console.log({ count });
 
-      if (Math.max(productInCart.count + count, 0) > 0) {
-        productInCart.count += count;
-        return {
-          ...oldShopingCart,
-          [product.id]: productInCart,
-        };
+      if (count < 1) {
+        const { [product.id]: toDelete, ...rest } = oldShopingCart;
+        return rest;
       }
 
-      // Borrar el producto
-      const { [product.id]: toDelete, ...rest } = oldShopingCart;
-      return { ...rest };
-
-      // if (count < 1) {
-      //   const { [product.id]: toDelete, ...rest } = oldShopingCart;
-      //   return rest;
-      // }
-
-      // return {
-      //   ...oldShopingCart,
-      //   [product.id]: { ...product, count },
-      // };
+      return {
+        ...oldShopingCart,
+        [product.id]: { ...product, count },
+      };
     });
   };
 
@@ -48,7 +33,6 @@ export const useShoppingCart = () => {
     shoppingCart,
 
     // Métodos
-    onProductCountChange
-  }
-}
-
+    onProductCountChange,
+  };
+};
