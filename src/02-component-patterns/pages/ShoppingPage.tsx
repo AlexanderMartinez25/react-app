@@ -25,7 +25,13 @@ export const ShoppingPage = () => {
     [key: string]: ProductInCard;
   }>({});
 
-  const onProductCountChange = ({ count, product }: { count: number; product: Product }) => {
+  const onProductCountChange = ({
+    count,
+    product,
+  }: {
+    count: number;
+    product: Product;
+  }) => {
     setShoppingCart((oldShopingCart) => {
       if (count < 1) {
         const { [product.id]: toDelete, ...rest } = oldShopingCart;
@@ -58,7 +64,10 @@ export const ShoppingPage = () => {
             className="bg-dark text-white"
             onChange={onProductCountChange}
           >
-            <ProductImage className="custom-image" style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }} />
+            <ProductImage
+              className="custom-image"
+              style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }}
+            />
             <ProductTitle className="text-bold" />
             <ProductButtons className="custom-buttons" />
           </ProductCard>
@@ -67,8 +76,17 @@ export const ShoppingPage = () => {
 
       <div className="shopping-cart">
         {Object.entries(shoppingCart).map(([key, product]) => (
-          <ProductCard key={key} product={product} className="bg-dark text-white" style={{ width: "100px" }}>
-            <ProductImage className="custom-image" style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }} />
+          <ProductCard
+            key={key}
+            product={product}
+            className="bg-dark text-white"
+            style={{ width: "100px" }}
+            value={product.count}
+          >
+            <ProductImage
+              className="custom-image"
+              style={{ boxShadow: "10px 10px 10px rgba(0,0,0,0.4" }}
+            />
             <ProductButtons
               className="custom-buttons"
               style={{
