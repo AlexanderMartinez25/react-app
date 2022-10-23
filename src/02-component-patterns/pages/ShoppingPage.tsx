@@ -33,15 +33,32 @@ export const ShoppingPage = () => {
     product: Product;
   }) => {
     setShoppingCart((oldShopingCart) => {
-      if (count < 1) {
-        const { [product.id]: toDelete, ...rest } = oldShopingCart;
-        return rest;
+      const productInCart: ProductInCard = oldShopingCart[product.id] || {
+        ...product,
+        count: 0,
+      };
+
+      if (Math.max(productInCart.count + count, 0) > 0) {
+        productInCart.count += count;
+        return {
+          ...oldShopingCart,
+          [product.id]: productInCart,
+        };
       }
 
-      return {
-        ...oldShopingCart,
-        [product.id]: { ...product, count },
-      };
+      // Borrar el producto
+      const { [product.id]: toDelete, ...rest } = oldShopingCart;
+      return { ...rest };
+
+      // if (count < 1) {
+      //   const { [product.id]: toDelete, ...rest } = oldShopingCart;
+      //   return rest;
+      // }
+
+      // return {
+      //   ...oldShopingCart,
+      //   [product.id]: { ...product, count },
+      // };
     });
   };
 
