@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { InitialValues, onChangeArg, Product } from "../interfaces/interfaces"
 
 
@@ -12,6 +12,8 @@ interface useProductArgs {
 
 export const useProduct = ({onChange, product, value = 0, initialValues}:useProductArgs) => {
   const [counter, setCounter] = useState<number>(initialValues?.count || value);
+  const isMounted = useRef(false)
+  
 
   const increaseBy = (value: number) => {
 
@@ -22,9 +24,14 @@ export const useProduct = ({onChange, product, value = 0, initialValues}:useProd
   }
 
   useEffect(() => {
-    setCounter(value);
+    // solo cuando el elemento esta montado ejecuta el setcouter
+    if (!isMounted.current) return;
+    setCounter(initialValues?.count || value);
   }, [value])
-  
+
+  useEffect(() => {
+    isMounted.current = true;
+  }, [])
 
   return {
     //* Propieades
