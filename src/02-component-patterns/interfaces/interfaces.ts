@@ -30,3 +30,7 @@ export interface onChangeArg {
 export interface ProductInCard extends Product {
   count: number;
 }
+export interface InitialValues {
+  count?: number;
+  maxCount?:number;
+}
