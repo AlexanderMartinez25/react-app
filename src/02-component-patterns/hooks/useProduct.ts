@@ -23,7 +23,6 @@ export const useProduct = ({onChange, product, value = 0, initialValues}:useProd
     }
     
     setCounter(newValue)
-
     onChange && onChange({count: newValue, product});
   }
 
@@ -42,6 +41,7 @@ export const useProduct = ({onChange, product, value = 0, initialValues}:useProd
     counter,
 
     //* Métodos
-    increaseBy
+    increaseBy,
+    maxCount: initialValues?.maxCount
   }
 }
