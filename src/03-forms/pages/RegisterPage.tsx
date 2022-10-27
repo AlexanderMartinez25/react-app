@@ -1,45 +1,58 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import "../styles/styles.css";
 
 export const RegisterPage = () => {
   const [registerData, setRegisterData] = useState({
-    name: "Alex",
-    email: "alex@gmial.com",
-    password1: "123456",
-    password2: "123456",
+    name: "",
+    email: "",
+    password1: "",
+    password2: "",
   });
   const { email, name, password1, password2 } = registerData;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    setRegisterData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(registerData);
+  };
+
   return (
     <div>
       <h1>Register Page</h1>
 
-      <form>
+      <form noValidate onSubmit={(ev) => onSubmit(ev)}>
         <input
           type="text"
           placeholder="Name"
           value={name}
-          onChange={onChange}
+          name="name"
+          onChange={(e) => onChange(e)}
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
-          onChange={onChange}
+          name="email"
+          onChange={(e) => onChange(e)}
         />
         <input
           type="password"
           placeholder="Password"
           value={password1}
-          onChange={onChange}
+          name="password1"
+          onChange={(e) => onChange(e)}
         />
         <input
           type="password"
           placeholder="Repeat Password"
           value={password2}
+          name="password2"
           onChange={(e) => onChange(e)}
         />
 
