@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import { MyTextInput } from "../components";
+import { MySelect, MyTextInput } from "../components";
 import formJson from "../data/custom-form.json";
 
 const initialValues: { [key: string]: any } = {};
@@ -12,26 +12,40 @@ export const DinamicForm = () => {
   return (
     <div>
       <h1>DinamicForm</h1>
+
       <Formik
-        initialValues={{
-          name: "alex",
-        }}
+        initialValues={initialValues}
         onSubmit={(values) => {
           console.log(values);
         }}
       >
         {(formik) => (
           <Form>
-            {formJson.map(({ label, name, placeholder, type }) => {
-              return (
-                <MyTextInput
-                  key={name}
-                  type={type as any}
-                  name={name}
-                  label={label}
-                  placeholder={placeholder}
-                />
-              );
+            {formJson.map(({ label, name, placeholder, type, options }) => {
+              if (type === "input" || type === "password" || type === "email") {
+                return (
+                  <MyTextInput
+                    key={name}
+                    type={type as any}
+                    name={name}
+                    label={label}
+                    placeholder={placeholder}
+                  />
+                );
+              } else if (type === "select") {
+                return (
+                  <MySelect key={name} label={label} name={name}>
+                    <option value="">Select an option</option>
+
+                    {options?.map(({ id, label }) => (
+                      <option key={id} value={id}>
+                        {label}
+                      </option>
+                    ))}
+                  </MySelect>
+                );
+              }
+              throw new Error(`El type: ${type}, no es soportado`);
             })}
             <button type="submit">Submit</button>
           </Form>
