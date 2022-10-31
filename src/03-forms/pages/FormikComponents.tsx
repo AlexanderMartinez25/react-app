@@ -26,7 +26,7 @@ export const FormikComponents = () => {
             .max(15, "Debe de tener 15 caracteres o menos")
             .required("Requerido"),
           email: Yup.string()
-            .email("El correo no tiene un formato invalido")
+            .email("El correo no tiene un formato valido")
             .required("Requerido"),
           terms: Yup.boolean()
             // debe de ser alguno de los valores que estan detro de []

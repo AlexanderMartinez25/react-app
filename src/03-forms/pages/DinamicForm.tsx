@@ -16,6 +16,15 @@ for (const input of formJson) {
     if (rule.type === "required") {
       schema = schema.required("Este campo es requerido");
     }
+    if (rule.type === "minLength") {
+      schema = schema.min(
+        (rule as any).value || 2,
+        `Mínimo de  ${(rule as any).value || 2} caracteres`
+      );
+    }
+    if (rule.type === "email") {
+      schema = schema.email("El correo no tiene un formato valido");
+    }
     // ... otras reglas
   }
 
@@ -37,7 +46,7 @@ export const DinamicForm = () => {
         }}
       >
         {(formik) => (
-          <Form>
+          <Form noValidate>
             {formJson.map(({ label, name, placeholder, type, options }) => {
               if (type === "input" || type === "password" || type === "email") {
                 return (
