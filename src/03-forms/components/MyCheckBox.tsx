@@ -1,4 +1,4 @@
-import { useField } from "formik";
+import { ErrorMessage, useField } from "formik";
 
 interface Props {
   label: string;
@@ -15,10 +15,7 @@ export const MyCheckBox = ({ label, ...props }: Props) => {
         <input type="checkbox" {...field} {...props} />
         {label}
       </label>
-      <input className="text-input" {...field} {...props} />
-      {meta.touched && meta.error && (
-        <span className="error">{meta.error}</span>
-      )}
+      <ErrorMessage name={props.name} component="span" />
     </>
   );
 };
