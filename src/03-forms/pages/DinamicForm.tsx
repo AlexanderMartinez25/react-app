@@ -2,6 +2,12 @@ import { Formik, Form } from "formik";
 import { MyTextInput } from "../components";
 import formJson from "../data/custom-form.json";
 
+const initialValues: { [key: string]: any } = {};
+
+for (const input of formJson) {
+  initialValues[input.name] = input.value;
+}
+
 export const DinamicForm = () => {
   return (
     <div>
