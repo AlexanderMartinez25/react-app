@@ -1,82 +1,66 @@
-import { FormEvent } from "react";
-import { useForm } from "../hooks/useForm";
-
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { MyTextInput } from "../components";
 import "../styles/styles.css";
 
 export const RegisterFormikPage = () => {
-  const {
-    onChange,
-    resetForm,
-    isValidEmail,
-    formData,
-    email,
-    name,
-    password1,
-    password2,
-  } = useForm({
-    name: "",
-    email: "",
-    password1: "",
-    password2: "",
-  });
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(formData);
-  };
-
   return (
     <div>
       <h1>Register Formink Page</h1>
 
-      <form noValidate onSubmit={(ev) => onSubmit(ev)}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          name="name"
-          onChange={(e) => onChange(e)}
-          className={`${name.trim().length <= 0 && "has-error"}`}
-        />
-        {name.trim().length <= 0 && <span>Este campo es necesario</span>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          name="email"
-          onChange={(e) => onChange(e)}
-          className={`${!isValidEmail(email) && "has-error"}`}
-        />
-        {!isValidEmail(email) && <span>Este campo es necesario</span>}
-        <input
-          type="password"
-          placeholder="Password"
-          value={password1}
-          name="password1"
-          onChange={(e) => onChange(e)}
-        />
-        {password1.trim().length <= 0 && <span>Este campo es necesario</span>}
-        {password2.trim().length > 0 && password1.trim().length > 0 && (
-          <span>La contraseña tiene que tener 6 caracteres</span>
-        )}
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          password1: "",
+          password2: "",
+        }}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string()
+            .min(3, "El nombre debe de ser 3 caracterres o mas")
+            .max(15, "El nombre debe de ser menor de 15 caracteres")
+            .required("Requerido"),
+          email: Yup.string()
+            .email("Revise el formato del correo")
+            .required("Requerido"),
+          password1: Yup.string().min(6, "Mínimo 6 letras").required(),
+          password2: Yup.string()
+            .oneOf([Yup.ref("password1")], "Las contraseñas no son iguales")
+            .required("Requerido"),
+        })}
+      >
+        {({ handleReset }) => (
+          <Form>
+            <MyTextInput label="nombre" name="name" placeholder="Alxander" />
+            <MyTextInput
+              label="Email"
+              name="email"
+              placeholder="Alxander@gmial.com"
+            />
+            <MyTextInput
+              label="Password"
+              name="password1"
+              type="password"
+              placeholder="*****"
+            />
 
-        <input
-          type="password"
-          placeholder="Repeat Password"
-          value={password2}
-          name="password2"
-          onChange={(e) => onChange(e)}
-        />
-        {password2.trim().length <= 0 && <span>Este campo es necesario</span>}
-        {password2.trim().length > 0 && password1 !== password2 && (
-          <span>las contraseñas deben de ser iguales</span>
-        )}
+            <MyTextInput
+              label="Confirm Password"
+              name="password2"
+              type="password"
+              placeholder="*****"
+            />
 
-        <button type="submit">Create</button>
-        <button onClick={resetForm} type="button">
-          Reset Form
-        </button>
-      </form>
+            <button type="submit">Create</button>
+            <button onClick={handleReset} type="button">
+              Reset Form
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
