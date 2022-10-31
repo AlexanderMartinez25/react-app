@@ -1,5 +1,6 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { MyCheckBox } from "../components/MyCheckBox";
 
 import { MySelect } from "../components/MySelect";
 import { MyTextInput } from "../components/MyTextInput";
@@ -40,43 +41,41 @@ export const FormikAbstraction = () => {
             .required("Requerido"),
         })}
       >
-        {(formik) => (
-          <Form>
-            <MyTextInput
-              label="First Name"
-              name="firstName"
-              placeholder="Alex"
-            />
+        {(formik) => {
+          return (
+            <Form>
+              <MyTextInput
+                label="First Name"
+                name="firstName"
+                placeholder="Alex"
+              />
 
-            <MyTextInput
-              label="Last Name"
-              name="LastName"
-              placeholder="Martinez"
-            />
+              <MyTextInput
+                label="Last Name"
+                name="LastName"
+                placeholder="Martinez"
+              />
 
-            <MyTextInput
-              label="Email Address"
-              name="email"
-              placeholder="alex@gmail.com"
-              type="email"
-            />
+              <MyTextInput
+                label="Email Address"
+                name="email"
+                placeholder="alex@gmail.com"
+                type="email"
+              />
 
-            <MySelect label="Job Type" name="jobType">
-              <option value="">Pick somthing</option>
-              <option value="developer">Developer</option>
-              <option value="desingner">Designer</option>
-              <option value="it-senior">IT Senior</option>
-              <option value="it-jr">IT Jr.</option>
-            </MySelect>
+              <MySelect label="Job Type" name="jobType">
+                <option value="">Pick somthing</option>
+                <option value="developer">Developer</option>
+                <option value="desingner">Designer</option>
+                <option value="it-senior">IT Senior</option>
+                <option value="it-jr">IT Jr.</option>
+              </MySelect>
 
-            <label>
-              <Field name="terms" type="checkbox" />
-              Terms and conditions
-            </label>
-            <ErrorMessage name="terms" component="span" />
-            <button type="submit">Submit</button>
-          </Form>
-        )}
+              <MyCheckBox label="Terms & Conditions" name="terms" />
+              <button type="submit">Submit</button>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
